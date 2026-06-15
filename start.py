@@ -167,7 +167,7 @@ def main():
     # 部署服务列表
     services = [
         ("LaChaine FE", "auto-deploy-fe.py", "lachaine-fe.conf"),
-         ("LaChaine FE", "auto-deploy-fe.py", "lachaine-admin-fe.conf"),
+         ("LaChaine Admin FE", "auto-deploy-fe.py", "lachaine-admin-fe.conf"),
         ("LaChaine BE", "auto-deploy-be.py", "lachaine-be.conf"),
     ]
     
