@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>部署状态概览</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      h1 {
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .subtitle {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.1rem;
+        margin-top: 10px;
+      }
+
+      .section {
+        margin-bottom: 50px;
+      }
+
+      .section-title {
+        color: #fff;
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .section-title::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 30px;
+        background: #fff;
+        border-radius: 3px;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 24px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #f0f0f0;
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .card-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .badge-frontend {
+        background: #e3f2fd;
+        color: #1976d2;
+      }
+
+      .badge-backend {
+        background: #f3e5f5;
+        color: #7b1fa2;
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .info-row {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .info-label {
+        flex: 0 0 110px;
+        color: #888;
+        font-size: 0.9rem;
+      }
+
+      .info-value {
+        flex: 1;
+        color: #444;
+        font-size: 0.95rem;
+        word-break: break-all;
+      }
+
+      .card-footer {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 2px solid #f0f0f0;
+      }
+
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: opacity 0.2s ease;
+      }
+
+      .card-link:hover {
+        opacity: 0.9;
+      }
+
+      .card-link svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 60px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .info-row {
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .info-label {
+          flex: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🚀 部署状态概览</h1>
+        <p class="subtitle">前后端应用部署信息一览</p>
+      </header>
+
+      <section class="section">
+        <h2 class="section-title">前端应用</h2>
+        <div class="cards-grid">
+          <!-- xuxiaoye Frontend -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">xuxiaoye Frontend</h3>
+              <span class="card-badge badge-frontend">Frontend</span>
+            </div>
+            <div class="card-body">
+              <div class="info-row">
+                <span class="info-label">Git 分支</span>
+                <span class="info-value">release</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">构建命令</span>
+                <span class="info-value">build:prd:nomap</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">部署目录</span>
+                <span class="info-value">/var/www/html/web2</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">仓库路径</span>
+                <span class="info-value"
+                  >/home/xiaoye/dev/gits/github/xuxiaoye.com/monorepo-root/apps/frontend</span
+                >
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="/legacy" target="_blank" class="card-link">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+                访问应用
+              </a>
+            </div>
+          </div>
+
+          <!-- LaChaine Frontend -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">LaChaine Frontend</h3>
+              <span class="card-badge badge-frontend">Frontend</span>
+            </div>
+            <div class="card-body">
+              <div class="info-row">
+                <span class="info-label">Git 分支</span>
+                <span class="info-value">release</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">构建命令</span>
+                <span class="info-value">build:prd:nomap</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">部署目录</span>
+                <span class="info-value">/var/www/html/lachaine</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">仓库路径</span>
+                <span class="info-value"
+                  >/home/xiaoye/dev/gits/github/lachaine-fe</span
+                >
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="/lachaine" target="_blank" class="card-link">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+                访问应用
+              </a>
+            </div>
+          </div>
+
+          <!-- LaChaine Admin Frontend -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">LaChaine Admin</h3>
+              <span class="card-badge badge-frontend">Frontend</span>
+            </div>
+            <div class="card-body">
+              <div class="info-row">
+                <span class="info-label">Git 分支</span>
+                <span class="info-value">release</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">构建命令</span>
+                <span class="info-value">build:prd:nomap</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">部署目录</span>
+                <span class="info-value">/var/www/html/lachaine-admin</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">仓库路径</span>
+                <span class="info-value"
+                  >/home/xiaoye/dev/gits/github/lachaine-admin-fe</span
+                >
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="/lachaine-admin/" target="_blank" class="card-link">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+                访问应用
+              </a>
+            </div>
+          </div>
+
+          <!-- TAdmin Frontend -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">TAdmin Frontend</h3>
+              <span class="card-badge badge-frontend">Frontend</span>
+            </div>
+            <div class="card-body">
+              <div class="info-row">
+                <span class="info-label">Git 分支</span>
+                <span class="info-value">release</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">构建命令</span>
+                <span class="info-value">build:prd:nomap</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">部署目录</span>
+                <span class="info-value">/var/www/html/web-tadmin</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">仓库路径</span>
+                <span class="info-value"
+                  >/home/xiaoye/dev/gits/github/react-typescript-frontend-template</span
+                >
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="/tadmin/" target="_blank" class="card-link">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+                访问应用
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">后端服务</h2>
+        <div class="cards-grid">
+          <!-- xuxiaoye Backend -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">xuxiaoye Open API</h3>
+              <span class="card-badge badge-backend">Backend</span>
+            </div>
+            <div class="card-body">
+              <div class="info-row">
+                <span class="info-label">JAR 文件</span>
+                <span class="info-value">web-home.jar</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Git 分支</span>
+                <span class="info-value">release</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">部署目录</span>
+                <span class="info-value">/home/xiaoye/dev/projects</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">仓库路径</span>
+                <span class="info-value"
+                  >/home/xiaoye/dev/gits/github/xuxiaoye.com/api-service</span
+                >
+              </div>
+              <div class="info-row">
+                <span class="info-label">启动脚本</span>
+                <span class="info-value">start-tadmin-jar.sh</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">停止脚本</span>
+                <span class="info-value">stop-tadmin-jar.sh</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- LaChaine Backend -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">LaChaine Backend</h3>
+              <span class="card-badge badge-backend">Backend</span>
+            </div>
+            <div class="card-body">
+              <div class="info-row">
+                <span class="info-label">JAR 文件</span>
+                <span class="info-value">hk.com.lachaine.process.jar</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Git 分支</span>
+                <span class="info-value">release</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">部署目录</span>
+                <span class="info-value">/home/xiaoye/dev/projects</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">仓库路径</span>
+                <span class="info-value"
+                  >/home/xiaoye/dev/gits/github/lachaine-be</span
+                >
+              </div>
+              <div class="info-row">
+                <span class="info-label">启动脚本</span>
+                <span class="info-value">start-lachaine-jar.sh</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">停止脚本</span>
+                <span class="info-value">stop-lachaine-jar.sh</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAdmin Backend -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">TAdmin Backend</h3>
+              <span class="card-badge badge-backend">Backend</span>
+            </div>
+            <div class="card-body">
+              <div class="info-row">
+                <span class="info-label">JAR 文件</span>
+                <span class="info-value">openapi-service.jar</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Git 分支</span>
+                <span class="info-value">release</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">部署目录</span>
+                <span class="info-value">/home/xiaoye/dev/projects</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">仓库路径</span>
+                <span class="info-value"
+                  >/home/xiaoye/dev/gits/github/openapi-crud-springboot-template</span
+                >
+              </div>
+              <div class="info-row">
+                <span class="info-label">启动脚本</span>
+                <span class="info-value">start-tadmin-jar.sh</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">停止脚本</span>
+                <span class="info-value">stop-tadmin-jar.sh</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>最后更新于 2026年6月</p>
+      </footer>
+    </div>
+  </body>
+</html>
